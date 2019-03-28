@@ -32,3 +32,35 @@ body {
 .slidein2 .row {
     justify-content: center;
 }
+
+#play {
+    color: #01151c;
+}
+
+#with {
+    color: white;
+}
+
+#gsap {
+    color: #01151c;
+}
+
+#slidein3 {
+    background-color: #020d0f;
+    text-align: center;
+}
+
+#boxbigtitle {
+color: white;
+}
+
+#boxes {
+    display: flex;
+    margin: 0 auto;
+
+}
+.box {
+    width: 20%;
+    text-align: justify;
+    padding: 3%;
+}

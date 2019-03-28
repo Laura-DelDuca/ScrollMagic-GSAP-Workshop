@@ -1,51 +1,42 @@
-// This will create a ScrollMagic controller that will house all of your animations.
+// On commence par créer un controlleur qui va héberger toutes les animations
 var controller = new ScrollMagic.Controller();
 
-// Now that we have a controller, we can start adding animations to it. 
-// The first one we’ll do is the parallax animation.
-
-// Whenever you want to add a new animation, you will need to create a new “Scene”.
-
-
+// Maintenant que l'on a un controlleur, on peut lui ajouter des animations et, chaque fois que l'on
+// veut ajouter une nouvelle animation, on doit créer une nouvelle “ScrollMagic.Scene”
 
 // ------------------------------------------------- PARALLAX BACKGROUND
 new ScrollMagic.Scene({
-    // We want the animation to start when #parallax enters the screen
+    // On détermine l'élément qui va déclencher l'animation
     triggerElement: "#parallax",
-    // By default, the animation will start when the triggerElement hits the middle of the screen (“onCenter”), 
-    // so we need to change it to “onEnter”
+    // Par défaut, l'animation démarre quand l'élément déclencheur arrive au milieu de l'écran (“onCenter”), 
+    // Dan ce cas-ci, on veut qu'elle commence quand l'élément entre sur la page: “onEnter”
     triggerHook: "onEnter",
 })
-// How long will the animation last ?
+// On détermine la durée de l'animation
 .duration('400%')
-// This is a shorthand to add a GSAP animation
-// Here, it makes the background move
+// Avec .setTween, on ajoute l'animation GSAP à la scène
 .setTween("#parallax", {
     backgroundPosition: "0% 100%",
     ease: Linear.easeNone
 })
-// For debugging purposes:
 .addIndicators() 
-// Once our scene is complete, we’ll add to the controller
+// Quand notre scène est configurée, on l'ajoute au controlleur
 .addTo(controller);
 
 
-
-// The next animation is the slide and pin animations for the second and third slides.
-// Both slides need the same animation:
+// L'animation suivante est le "slide and pin" pour les slides 1 et 2
+// Les deux slides ont besoin de la même animation
 
 // ------------------------------------------------- SLIDE 1
 new ScrollMagic.Scene({
     triggerElement: "#slidein",
-    // we want the slides to become pinned to the screen once they are about to leave the screen, 
-    // hence the “onLeave”
+    // Les slides doivent être "épinglées" sur l'écran quand elles sont sur le bout de le quitter, d'où “onLeave”
     triggerHook: "onLeave",
 })
 
 .setPin("#slidein")
 .addIndicators()
 .addTo(controller);
-
 
 // ------------------------------------------------- SLIDE 2
 new ScrollMagic.Scene({
@@ -56,37 +47,33 @@ new ScrollMagic.Scene({
 .addIndicators()
 .addTo(controller);
 
-// On the last slide, I have 3 animations. Each one requires the use of GSAP timelines. 
-
-// In the first animation, we create a GSAP timeline that will have two points. 
-// It will start with our element #left placed 500 pixels to the left of the screen, 
-// and it will end with it at its original position.
+// Sur la dernière slide, il y a trois animations et elles requièrent les timelines de GSAP 
 
 // ------------------------------------------------- WORD FROM LEFT
 
 var leftword = new TimelineMax();
-// The object must be outside the screen when wa scroll down, so we put it at -500
+// L'objet dans être en dehors de l'écran quand on arrive sur la slide
+// On le moet donc en position initiale à -500
 var fromLeftFrom = TweenMax.from("#left", 1, {x: -500});
-var fromLeftTo = TweenMax.to("#left", 2, {x: 0});
+var fromLeftTo = TweenMax.to("#left", 3, {x: 0});
 leftword
     .add(fromLeftFrom)
     .add(fromLeftTo);
 
-// Then we create our scene as before:
+// Quand on a fini la timeline de GSAP, il faut créer une Scène dans laquelle l'animation que l'on vient de créer sera appelée
 
 new ScrollMagic.Scene({
     triggerElement: "#slidein2",
-    // The start point is 200 pixels below the top of the #slidein2
+    // Le point de départ est de 200 px au dessous du haut de la slide 2
     offset: 200,
 })
-// We add the timeline via setTween(), and set the duration to a scroll of 400 pixels.
+// On ajoute notre timeline via .setTween()
 .setTween(leftword)
-// And set the duration to a scroll of 400 pixels.
+// Et on détermine la durée de l'animation à un scroll de 400px
 .duration(400)
 .reverse(true)
 .addIndicators()
 .addTo(controller);
-
 
 // ------------------------------------------------- CENTRAL WORD - OPACITY
 var opacity = new TimelineMax();
@@ -106,11 +93,10 @@ new ScrollMagic.Scene({
     .addIndicators()
     .addTo(controller);
  
-
 // ------------------------------------------------- WORD FROM THE BOTTOM
 var rightword = new TimelineMax();
 var fromBottomFrom = TweenMax.from("#bottom", 1, {y: 300});
-var fromBottomTo = TweenMax.to("#bottom", 2, {y: 0});
+var fromBottomTo = TweenMax.to("#bottom", 3, {y: 0});
 rightword
     .add(fromBottomFrom)
     .add(fromBottomTo);
@@ -125,3 +111,28 @@ new ScrollMagic.Scene({
     .addIndicators()
     .addTo(controller);
 
+// ------------------------------------------------- SLIDE 3
+new ScrollMagic.Scene({
+    triggerElement: "#slidein3",
+    triggerHook: "onLeave",
+})
+.setPin("#slidein3")
+.addIndicators()
+.addTo(controller);
+
+// ------------------------------------------------- LEFT BOX
+var leftbox = new TimelineMax();
+var leftboxFrom = TweenMax.staggerFrom(".box", 1, {x:-300, opacity:0}, 0.5);
+// var leftboxTo = TweenMax.staggerTo(".box", 1, {x: 0});
+leftbox
+    .add(leftboxFrom)
+    // .add(leftboxTo)
+
+new ScrollMagic.Scene({
+    triggerElement: "#slidein3",
+    offset: 250,
+})
+.setTween(leftbox)
+.reverse(true)
+.addIndicators()
+.addTo(controller);

@@ -111,7 +111,7 @@ new ScrollMagic.Scene({
     .addIndicators()
     .addTo(controller);
 
-// ------------------------------------------------- SLIDE 3
+// ------------------------------------------------- SLIDE 3 - CARDS
 new ScrollMagic.Scene({
     triggerElement: "#slidein3",
     triggerHook: "onLeave",
@@ -133,6 +133,31 @@ new ScrollMagic.Scene({
     offset: 250,
 })
 .setTween(leftbox)
+.reverse(true)
+.addIndicators()
+.addTo(controller);
+
+// ------------------------------------------------- SLIDE 4 - PHOTO and TEXTE
+// Photo en zoom (.to scale???)
+// Texte: plusieurs lignes en stagger
+new ScrollMagic.Scene({
+    triggerElement: "#slidein4",
+    triggerHook: "onLeave",
+})
+.setPin("#slidein4")
+.addIndicators()
+.addTo(controller);
+
+// ------------------------------------------------- SLIDE 4 - PHOTO
+var zoommountain = new TimelineMax();
+var mountainzoom = TweenMax.to("#mountain2", 1, {scale:2.5});
+zoommountain
+    .add(mountainzoom)
+
+new ScrollMagic.Scene({
+    triggerElement: "#slidein4",
+})
+.setTween(zoommountain)
 .reverse(true)
 .addIndicators()
 .addTo(controller);

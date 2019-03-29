@@ -47,14 +47,14 @@ new ScrollMagic.Scene({
     // .addIndicators()
     .addTo(controller);
 
-// Sur la dernière slide, il y a trois animations et elles requièrent les timelines de GSAP 
+// Sur la deuxième slide, il y a trois animations et elles requièrent les timelines de GSAP 
 
 // ------------------------------------------------- WORD FROM LEFT
 
 var leftword = new TimelineMax();
 // L'objet dans être en dehors de l'écran quand on arrive sur la slide
-// On le moet donc en position initiale à -500
-var fromLeftFrom = TweenMax.from("#left", 1, { x: -500 });
+// On le met donc en position initiale à -500
+var fromLeftFrom = TweenMax.from("#left", 1, { x: -600 });
 var fromLeftTo = TweenMax.to("#left", 3, { x: 0 });
 leftword
     .add(fromLeftFrom)
@@ -78,7 +78,7 @@ new ScrollMagic.Scene({
 // ------------------------------------------------- CENTRAL WORD - OPACITY
 var opacity = new TimelineMax();
 var fadeInFrom = TweenMax.from("#opacity", 1, { opacity: 0 });
-var fadeInTo = TweenMax.to("#opacity", 1, { opacity: 1 });
+var fadeInTo = TweenMax.to("#opacity", 2, { opacity: 1 });
 opacity
     .add(fadeInFrom)
     .add(fadeInTo);
@@ -122,8 +122,11 @@ new ScrollMagic.Scene({
 
 // ------------------------------------------------- SLIDE 3 - TEXT BOXES
 var leftbox = new TimelineMax();
-var leftboxFrom = TweenMax.staggerFrom(".box", 1, { x: -300, opacity: 0 }, 0.5);
-// var leftboxTo = TweenMax.staggerTo(".box", 1, {x: 0});
+var leftboxFrom = TweenMax.staggerFrom(".box", 1, {
+    x: -300,
+    opacity: 0,
+    ease: Power2.easeOut
+}, 0.5);
 leftbox
     .add(leftboxFrom)
 // .add(leftboxTo)
@@ -162,11 +165,12 @@ new ScrollMagic.Scene({
 
 // ------------------------------------------------- SLIDE 4 - TEXT LINES
 var stagger = new TimelineMax();
-var staggerlines = TweenMax.staggerFrom(".staggerline", 1, {
+var staggerlines = TweenMax.staggerFrom(".staggerline", 2, {
     opacity: 0,
     x: 500,
+    ease: Elastic.easeOut,
     delay: 0.5
-}, 1);
+}, 0.5);
 stagger
     .add(staggerlines)
 
@@ -175,17 +179,39 @@ new ScrollMagic.Scene({
 })
     .setTween(stagger)
     .reverse(true)
-    .addIndicators()
+    // .addIndicators()
     .addTo(controller);
 
+// ------------------------------------------------- SLIDE 5
+new ScrollMagic.Scene({
+    triggerElement: "#slidein5",
+    triggerHook: "onLeave",
+})
+    .setPin("#slidein5")
+    // .addIndicators()
+    .addTo(controller);
 
-// TweenMax.staggerFrom(
-//     ".box",
-//     0.5,
-//     {
-//       opacity: 0,
-//       y: 200,
-//       delay: 0.5
-//     },
-//     0.2
-//   );
+// ------------------------------------------------- SLIDE 5 - ANIMATION
+// Plusieurs animations qui se suivent, des tweens-enfants de la timeline:
+var curtains = new TimelineMax();
+var curtainLeftMove = TweenMax.from("#curtainLeft", 1, {height: 0,});
+var curtainRightMove = TweenMax.from("#curtainRight", 1, { y: 1000 });
+var curtainsfade = TweenMax.to("#curtainLeft, #curtainRight", 1, {opacity: 0, delay: 1});
+var curtainTextIn = TweenMax.from("#curtainText", 7, { opacity: 0 });
+var curtainTextOut = TweenMax.to("#curtainText", 1, { opacity: 1 });
+
+curtains
+    .add(curtainLeftMove)
+    .add(curtainRightMove)
+    .add(curtainsfade)
+    .add(curtainTextIn)
+    .add(curtainTextOut)
+
+new ScrollMagic.Scene({
+    triggerElement: "#slidein5",
+    triggerHook: "onCenter"
+})
+    .setTween(curtains)
+    .reverse(false)
+    // .addIndicators()
+    .addTo(controller);

@@ -1,6 +1,7 @@
 body {
+    overflow-x: hidden;
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
  
 .slide .row {
@@ -24,10 +25,21 @@ body {
 .slidein {
     background: #01151c;
 }
+
+#pictures {
+    display: flex;
+}
+
+.spinpictures {
+width: 25%;
+padding: 3%;
+}
  
 .slidein2 {
     background: #1c5e6e;
 }
+
+
  
 .slidein2 .row {
     justify-content: center;
@@ -63,11 +75,11 @@ color: white;
     margin: 0 auto;
 
 }
+
 .box {
     width: 20%;
     text-align: justify;
     padding: 3%;
-
 }
 
 #slidein4 {
@@ -81,4 +93,36 @@ color: white;
 
 #moutaintext {
     z-index: 1;
+}
+
+.staggerline {
+    line-height: 300%;
+}
+
+.curtains {
+    
+    background-color: #8ba7b2;
+    display:flex;
+}
+
+#curtainLeft {
+    background-color: #1c4e59;
+    width: 50%;
+    height: 100vh;
+}
+
+#curtainRight {
+    background-color: #020d0f;
+    width: 50%;
+}   
+
+#curtainText {
+    color: #01151c;
+    width: 100wh;
+}
+
+#lastText {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 3em;
 }

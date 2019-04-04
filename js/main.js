@@ -54,7 +54,7 @@ new ScrollMagic.Scene({
 var leftword = new TimelineMax();
 // L'objet dans être en dehors de l'écran quand on arrive sur la slide
 // On le met donc en position initiale à -500
-var fromLeftFrom = TweenMax.from("#left", 1, { x: -600 });
+var fromLeftFrom = TweenMax.from("#left", 1, { x: -700 });
 var fromLeftTo = TweenMax.to("#left", 3, { x: 0 });
 leftword
     .add(fromLeftFrom)

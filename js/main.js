@@ -30,7 +30,7 @@ new ScrollMagic.Scene({
 // ------------------------------------------------- SLIDE 1
 new ScrollMagic.Scene({
     triggerElement: "#slidein",
-    // Les slides doivent être "épinglées" sur l'écran quand elles sont sur le bout de le quitter, d'où “onLeave”
+    // Les slides doivent être "épinglées" sur l'écran quand elles sont sur le point de le quitter, d'où “onLeave”
     triggerHook: "onLeave",
 })
 
